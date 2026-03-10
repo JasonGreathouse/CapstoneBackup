@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="form.css">
+<html>
+<head>
+	<title>Creating Event</title>
+	<link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<body>
+	<ul>
+		<li><a href="home.html">Home</a>
+		<li><a href="events.html">Events</a>
+		<li><a class="active" href="create.html">Create</a>
+	</ul>
+	<h1>Create an Event!</h1>
+	<h2>Fill in the form below to create your event.</h2>
+	<form>
+		<label for=fname">First Name</label>
+		<input type="text" id="fname" name="firstname" placeholder="Put your first name...">
+		
+		<label for="lname">Last Name</label>
+		<input type="text" id="lname" name="lastname" placeholder="Put your last name...">
+		
+		<label for="email">Email</label>
+		<input type="email" id="email" name="email" placeholder="example@email.com">
+
+		<label for="phone">Phone Number</label>
+		<input type="tel" id="phone" name="phone" placeholder="123-456-7890" maxlength="15">
+
+		<label for="evdate">Event Date</label>
+		<input type="date" id="evdate" name="evdate" placeholder="mm/dd/yyyy">
+
+		<label for="stime">Start Time</label>
+		<input type="time" id="stime" name="stime">
+
+		<label for="etime">End Time</label>
+		<input type="time" id="etime" name="etime">
+
+		<label for="campus">Campus</label>
+		<select id="campus" name="campus">
+			<option value="macon">Macon</option>
+			<option value="wrobins">Warner Robins</option>
+			<option value="cochran">Cochran</option>
+			<option value="dublin">Dublin</option>
+			<option value="eastman">Eastman</option>
+			<option value="online">Online</option>
+		</select>
+
+		<label for="describe">Description</label>
+		<textarea id="description" name="description" placeholder="Describe your event..."></textarea>
+
+		<input type="submit" value="Submit">
+	</form>
+</body>
+<hr>
+<footer>
+
+	<!--This works for opening Gmail in separate tab and having email prefilled
+    	<a href="https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=Hello%20World&body=This%	20is%20a%20test%20message." target="_blank" rel="noopener noreferrer">Gmail</a>
+	-->
+
+	<p>The Hangout Board</p>
+	<p>123-456-7890</p>
+	<p><a href="mailto:place email here">put email here</a></p>
+	<a href="https://www.facebook.com/" class="fa fa-facebook" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.snapchat.com/" class="fa fa-snapchat-ghost" target="_blank" rel="noopener noreferrer"></a>
+</footer>
+</html>
