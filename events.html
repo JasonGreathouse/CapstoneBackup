@@ -1,46 +1,156 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="style.css">
-<html>
+<html lang="en">
 <head>
 	<title>Events</title>
+	<!--Check user login state-->
+	<script>
+  const user = sessionStorage.getItem("loggedInUser");
+
+  if (!user) {
+    window.location.href = "index.html";
+  }
+</script>
+	<!--Clear user login state-->
+	<script>
+		function logout() {
+			sessionStorage.clear();
+			localStorage.clear();
+			window.location.href = "index.html";
+		}
+	</script>
 	<link rel="icon" type="image/x-icon" href="favicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="global.css">
 </head>
 <body>
-	<ul>
-		<li><a href="home.html">Home</a>
-		<li><a class="active" href="events.html">Events</a>
-		<li><a href="create.html">Create</a>
-	</ul>
+	<div class="navbar">
+  		<a class="active" href="events.html">Events</a>
+  		<a href="create.html">Create</a>
+  		<a href="FAQ.html">FAQ</a>
+		<a href="about.html">About</a>
+  		<div class="navright">
+			<a href="#" onclick="logout(); return false;">Logout</a>
+  		</div>
+	</div>
 	<h1>Events</h1>
-	<p>Place events here.</p>
+	<h2>Join in on all the great community events!</h2>
 	<hr>
-	<div class="container">
-  		<img src="favicon.png" alt="Avatar" style="width:90px">
- 		<p><span>King McKnight.</span> Macon 098-765-4321 mcswordking@email.com.</p>
- 		<p>10:00 - 1:00 pm  02/09/2026</p>
-		<p>In room 123 at Von Real Building for the Snack on Track event.</p>
-	</div>
+	
+<div id="eventsContainer"></div>
+	<!--Call getevents worker api to dynamically populate events from the database
+		Also implements admin controls with additional buttons and functions to approve/deny events-->
+<script>
+	const role = sessionStorage.getItem("role");
+const container = document.getElementById("eventsContainer");
 
-	<div class="container">
- 		<img src="favicon.png" alt="Avatar" style="width:90px">
-  		<p><span>Wack Zeldon.</span> Online 123-456-7890 wackdon@email.com</p>
-  		<p>8:00 pm - 9:30 pm  02/09/2026</p>
-		<p>Meeting for The Bangout Hoard</p>
-	</div>
-</body>
-<hr>
+fetch("https://getevents.zacharyweldon2003.workers.dev/")
+  .then(res => res.json())
+  .then(events => {
+  console.log("API RESPONSE:", events);
+    container.innerHTML = ""; // clear any placeholder content
+
+    events.forEach(event => {
+		// Hide pending events from non-admin users
+		console.log("STATUS:", event.status);
+if (role !== "admin" && event.status === "pending") return;
+      // Create card container
+      const card = document.createElement("div");
+      card.className = "container";
+
+      // Event content
+      card.innerHTML = `
+		<img src="favicon.png" alt="Avatar">
+		<span>${event.title}</span>
+		<hr>
+		<h3>${event.description}</h3>
+		<details>
+			<summary>More information on poster and event:</summary>
+			<table>
+				<tr>
+					<td>Created By:</td>
+					<td>${event.created_by}</td>
+				<tr>
+					<td>Campus:</td>
+					<td>${event.campus}</td>
+				</tr>
+				<tr>
+					<td>Location:</td>
+					<td>${event.location}</td>
+				</tr>
+				<tr>
+					<td>Date:</td> 
+					<td>${event.event_date}</td>
+				</tr>
+				<tr>
+					<td>Time:</td>
+					<td>${event.event_time}</td>
+				</tr>
+			</table>
+		</details>
+        <div class="admin-controls" style="display:none;">
+          <button class="approve-btn">Approve</button>
+          <button class="deny-btn">Deny</button>
+        </div>
+      `;
+
+      // Show admin controls if role = admin
+      if (role === "admin") {
+  const adminControls = card.querySelector(".admin-controls");
+  adminControls.style.display = "block";
+
+  // ✅ APPROVE BUTTON ONLY
+  card.querySelector(".approve-btn").addEventListener("click", () => {
+    console.log("Approving event:", event);
+
+    fetch(`https://getevents.zacharyweldon2003.workers.dev/${event.event_id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "approved" })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Approve response:", data);
+      alert("Event approved!");
+    })
+    .catch(err => console.error(err));
+  });
+
+	// DENY BUTTON
+		  card.querySelector(".deny-btn").addEventListener("click", () => {
+  console.log("Denying event:", event);
+
+  fetch(`https://getevents.zacharyweldon2003.workers.dev/${event.event_id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: "denied" })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Deny response:", data);
+    alert("Event denied!");
+	card.remove();
+  })
+  .catch(err => console.error(err));
+});
+}
+
+      container.appendChild(card);
+    });
+
+  })
+  .catch(err => {
+    container.innerHTML = `<p style="color:red;">Failed to load events: ${err.message}</p>`;
+    console.error(err);
+  });
+</script>
+	
 <footer>
-
-	<!--This works for opening Gmail in separate tab and having email prefilled
-    	<a href="https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=Hello%20World&body=This%	20is%20a%20test%20message." target="_blank" rel="noopener noreferrer">Gmail</a>
-	-->
-
 	<p>The Hangout Board</p>
+	<a href="https://compose.mail.yahoo.com/?to=project.hangout@yahoo.com" target="_blank" rel="noopener noreferrer">project.hangout@yahoo.com</a>
 	<p>123-456-7890</p>
-	<p><a href="mailto:place email here">put email here</a></p>
 	<a href="https://www.facebook.com/" class="fa fa-facebook" target="_blank" rel="noopener noreferrer"></a>
 	<a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank" rel="noopener noreferrer"></a>
 	<a href="https://www.snapchat.com/" class="fa fa-snapchat-ghost" target="_blank" rel="noopener noreferrer"></a>
 </footer>
+</body>
 </html>

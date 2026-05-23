@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="global.css">
+<html>
+
 <head>
 <title>The Hangout Board</title>
 <link rel="icon" type="image/x-icon" href="favicon.png">
@@ -8,49 +11,25 @@
 </head>
 
 <body>
-	<div class="navbar">
-		<a class="active" href="index.html">Login</a>
-		<a href="newaccount.html">NewAccount</a>
-	</div>
+	<ul>
+		<li><a class="active" href="home.html">Home</a>
+		<li><a href="events.html">Events</a>
+		<li><a href="create.html">Create</a>
+		<li><a href="FAQ.html">FAQ</a>
+        <li><a href="about.html">About</a>
+	</ul>
 	<h1>The Hangout Board</h1>
-	<p>It is great to see you!</p>
+	<h2>A Capstone Project</h2>
 
 
 <div class="container">
+<div class="card">
 
-<h1>Login</h1>
-<p class="subtitle">Login to see or create events!</p>
 
-<form id="loginForm">
-
-<div style="text-align: center;" class="input-group">
-	<label>Username or Email</label>
-	<input type="text" id="identifier" required>
-</div>
-<br>
-<div style="text-align: center;" class="input-group">
-	<label>Password</label>
-	<input type="password" id="password" required>
-</div>
-<br>
-<div class="location-center">
-	<button type="submit" class="login-button">Login</button>
-
-	<a href="reset.html" class="login-button">Forgot Password</a>
-</div>
-</form>
-
-<div class="status" id="statusMessage" style="display:none;"></div>
-	
-<div class="location-center">
-Don't have an account? <a href="newaccount.html">Sign Up</a>
-</div>
 
 </div>
-<div class ="location-center">
-	<img src="welcome.png" alt="Picture of a knight waving with a welcome.">
 </div>
-	<!--Call userapi worker for login auth-->
+
 <script>
 
 const form = document.getElementById("loginForm");
@@ -85,10 +64,6 @@ msg.style.display = "block";
 if (data.success) {
 
   msg.innerText = "✅ Login successful! Redirecting...";
-	
-  	sessionStorage.setItem("loggedIn", "true");
-  	sessionStorage.setItem("loggedInUser", JSON.stringify(data.user));
-	sessionStorage.setItem("role",data.user.role);
 
   setTimeout(() => {
     window.location.href = "events.html";
@@ -117,13 +92,16 @@ console.error(error);
 
 </script>
 
+<hr>
+
 <footer>
 <p>The Hangout Board</p>
-<a href="https://compose.mail.yahoo.com/?to=project.hangout@yahoo.com" target="_blank" rel="noopener noreferrer">project.hangout@yahoo.com</a>
 <p>123-456-7890</p>
+<p><a href="mailto:place email here">put email here</a></p>
+
 <a href="https://www.facebook.com/" class="fa fa-facebook" target="_blank"></a>
 <a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank"></a>
 <a href="https://www.snapchat.com/" class="fa fa-snapchat-ghost" target="_blank"></a>
 </footer>
-</body>
+
 </html>

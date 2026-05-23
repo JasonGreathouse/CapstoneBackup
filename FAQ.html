@@ -1,75 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frequently Asked Questions</title>
-</head>
+	<title>FAQ</title>
+	<!--Check user login state-->
+	<script>
+  const user = sessionStorage.getItem("loggedInUser");
 
+  if (!user) {
+    window.location.href = "index.html";
+  }
+</script>
+	<!--clear user login state-->
+	<script>
+		function logout() {
+			sessionStorage.clear();
+			localStorage.clear();
+			window.location.href = "index.html";
+		}
+	</script>
+	<link rel="icon" type="image/x-icon" href="favicon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="global.css">
+</head>
 <body>
+	<div class="navbar">
+  		<a href="events.html">Events</a>
+  		<a href="create.html">Create</a>
+  		<a class="active" href="FAQ.html">FAQ</a>
+		<a href="about.html">About</a>
+  		<div class="navright">
+			<a href="#" onclick="logout(); return false;">Logout</a>
+  		</div>
+	</div>
 
 <main>
   <h1>Frequently Asked Questions (FAQ)</h1>
   <p>Please browse through the answers to common questions we get.</p>
   <hr>
 
-  <details>
-    <summary>How do I make an account?</summary>
-    <p>
-      In the top right there is a button labeled sign up. Clicking it will take you to our
-      sign up page for new users.
-    </p>
-  </details>
-
-  <hr>
-
-  <details>
-    <summary>How do I join an event?</summary>
-    <p>
-      In the top left there is an events page. All active events are displayed there.
-      Scroll through to find an event you like, and you can apply using the join button
-      on the right. You need to be a user to join an event.
-    </p>
-  </details>
-
-  <hr>
-
-  <details>
-    <summary>How do I create an event?</summary>
-    <p>
-      In the top left there is a create page. If you have an account, you can go through
-      the creation form to make your event.
-    </p>
-  </details>
-
-  <hr>
-
-  <details>
-    <summary>What is the amount of time it takes for my event to be posted?</summary>
-    <p>
-      It shouldn't take long for your event to be posted. We like to ensure all events
-      being posted are safe and respectful. If you do not see your event on the event
-      page within a few hours, please contact us to assist you in resolving the issue.
-      It is recommended to try posting an event at least 24 hours in advance to give
-      it time to be posted and people to see it.
-    </p>
-  </details>
-
-  <hr>
-
-  <details>
-    <summary>Is it possible to report events I think are unsafe or in violation of rules?</summary>
-    <p>
-      We strive to create a safe and respectful platform. If you believe an event
-      should be taken down, please contact us and we will review the event.
-      When reporting an event, your report should include event name, event poster,
-      location, and date for us to quickly find and review it.
-      The email or phone number found at the bottom of the website page is our
-      preferred method of contact.
-    </p>
-  </details>
-
+<div class="FAQ-section"> <!--First FAQ row-->
+	<div class="FAQ-inside"><h2>How do I delete my account?</h2>
+		<details class="details-FAQ">
+			<summary>The easiest way is to email us. Click for an expansion on details.</summary>
+				<p>Currently, there is no method for a user to manually delete their account themself. We are still in the early stages of building up our database and interactivity. With the small number of users currently,
+					our team is capable of manually handling deletion requests. Please email us through our email link at the bottom of the page or project.hangout@yahoo.com. In the email
+					please include your username, email used for account creation if different, and screenshot of account logged in as proof of account ownership. We use this as a means of ensuring malicious individuals cannot impersonate others to delete accounts, and we will
+					never ask for your password. Rolling out user ability for account deletion is a project we hope to finish someday, but emailing us is the best method for now.</p>
+		</details>
+	</div>
+	<div class="FAQ-inside"><h2>How do I join an event?</h2>
+		<details class="details-FAQ">
+			<summary>Check description for contact details, and events are often public entry unless stated otherwise. Click for an expansion on details. </summary>
+				<p>When creating an event, the poster gives information on the location and time of the event. In the description, it is expected they will include any preferred contact method and potential restrictions for 
+					entry. If the description is missing contact information, try finding the event through its name on the MGA website or email.</p>
+		</details>
+	</div>
+</div>	<!--Closes first row of FAQ-->		
+<hr>
+<div class="FAQ-section"> <!--Second FAQ row-->
+	<div class="FAQ-inside"><h2>How do I create an event?</h2>
+		<details class="details-FAQ">
+			<summary>Use the <a href="create.html" style="color: teal">Create</a> page found on the top left. Click for an expansion on details.</summary>
+				<p>In the top left of the screen, a navbar contains clickable links to the other pages. Second on the list and left of FAQ is Create. Clicking Create will take you to the Create page. You can also use
+					the Create link above in the clickable dropdown. Event name, description, location, event date, event time, and campus should be done for the submission of an event. The event will not immediately
+					appear in the Events page. We will check any created events for potential concerns before letting other users see them. We check for new event regularly, and it should not take long for your event to
+					be approved or denied. Contact information for reaching you or event organizers in the description is recommended for other users looking to reach out about your posted event.</p>
+		</details>
+	</div>
+	<div class="FAQ-inside"><h2>What is the amount of time it takes for my event to post?</h2>
+		<details class="details-FAQ">
+			<summary>The average time would likely be 24 hours or less. Click for an expansion on details.</summary>
+				<p>We check regularly for any new events being made. While not instantenous, we take the safety of our community seriously. By checking events before allowing people to see them, users are less likely to
+					encounter fake or malicious events. If your event has taken longer than 24 hours for approval or you feel had rejection incorrectly, please email or call us to discuss and review the issue. The Hangout Board 
+					is a safe and friendly environment, and our team thanks you for your patience and understanding.</p>
+		</details>
+	</div>
+</div> <!--Closes second row of FAQ-->
+<div class="FAQ-section"> <!--Third FAQ row-->
+	<div class="FAQ-inside"><h2>Can I change my password?</h2>
+		<details class="details-FAQ">
+			<summary>Yes, use the <a href="reset.html" style="color: teal">forgot password</a> in the login screen. Click for an expansion on details.</summary>
+				<p>When logging in, there is a forgot password button that brings you to the forgot password page. It will ask for your username or email. Once you send us the request, we will contact you with a way
+				to change your password. While it is for those who forgot their password, it can also be used to change it. On the dropdown, forgot password should work as a clickable link to the page.</p>
+		</details>
+	</div>
+	<div class="FAQ-inside"><h2>Was your question not on here?</h2>
+		<details class="details-FAQ">
+			<summary>Please reach out to us. Click for an expansion on details.</summary>
+				<p>If the question you have is not on our FAQ page, email or call us about your question. The Hangout Board email link and phone number is at the bottom in the page footer. Our email is project.hangout@yahoo.com.
+				We look forward to helping you resolve any issues or concerns you may be having.</p>
+		</details>
+	</div>
+</div> <!--Closes third row of FAQ-->
 </main>
+<hr>
+<footer>
 
+	<p>The Hangout Board</p>
+	<a href="https://compose.mail.yahoo.com/?to=project.hangout@yahoo.com" target="_blank" rel="noopener noreferrer">project.hangout@yahoo.com</a>
+	<p>123-456-7890</p>
+	<a href="https://www.facebook.com/" class="fa fa-facebook" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.snapchat.com/" class="fa fa-snapchat-ghost" target="_blank" rel="noopener noreferrer"></a>
+</footer>
 </body>
 </html>

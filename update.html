@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - The Hangout Board</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding-top: 70px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #eee;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-button {
+            background-color: #BA55D3;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .login-button:hover {
+            background-color: #6D6968;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="index.html">Login</a>
+    </div>
+
+    <h1>The Hangout Board</h1>
+    <p style="text-align:center;">Reset your password below</p>
+
+    <div class="container">
+        <div class="card">
+
+            <h2>Reset Password</h2>
+
+            <input type="password" id="newPassword" placeholder="Enter new password">
+
+            <button class="login-button" onclick="submitReset()">
+                Update Password
+            </button>
+
+            <div class="message" id="msg"></div>
+
+        </div>
+    </div>
+    
+<!--Call updatepassword worker API to change user's password in the database-->
+    <script>
+        const token = new URLSearchParams(window.location.search).get("token");
+
+        async function submitReset() {
+            const password = document.getElementById("newPassword").value;
+
+            const response = await fetch("https://updatepassword.zacharyweldon2003.workers.dev", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    token,
+                    password
+                })
+            });
+
+            const data = await response.json();
+
+            document.getElementById("msg").innerText =
+                data.message || data.error || "Something went wrong";
+        }
+    </script>
+
+</body>
+</html>

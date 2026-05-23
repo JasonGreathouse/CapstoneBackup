@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>The Hangout Board</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+	<div class="navbar">
+		<a href="index.html">Login</a>
+		<a class="active" href="newaccount.html">NewAccount</a>
+	</div>
+<h1>Thanks for joining!</h1>
+<main>
+<div class="container">
+  <h1>Create Account</h1>
+
+ <form id="signupForm">
+<div style="text-align: center">
+	<label>Username</label>
+	<input type="text" id="username" required>
+
+<br><br>
+
+	<label style="text-align: center">Email</label>
+	<input type="email" id="email" required>
+
+<br><br>
+
+	<label style="text-align: center">Password</label>
+	<input type="password" id="password" required>
+</div> 
+<br><br>
+<div class="location-center">
+	<button type="submit" class="login-button">Create Account</button>
+</div>
+</form>
+
+<p id="statusMessage" style="display:none;"></p>
+</div>
+<div class ="location-center">
+	<img src="loginimage.png" alt="Image of a person with a question mark head.">
+</div>
+	
+	<!--Call createuser worker API to create new user entry in the users table-->
+<script>
+
+const form = document.getElementById("signupForm");
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const username = document.getElementById("username").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+fetch("https://createuser.zacharyweldon2003.workers.dev/", {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+username: username,
+email: email,
+password: password
+})
+
+})
+.then(response => response.json())
+.then(data => {
+
+const msg = document.getElementById("statusMessage");
+
+msg.style.display = "block";
+
+if (data.success) {
+  msg.innerText = "Account created successfully!";
+} else {
+  msg.innerText = "Account creation failed: " + (data.error || "unknown error");
+}
+})
+.catch(error => {
+console.error(error);
+});
+
+});
+
+</script>
+</main>
+<footer>
+
+
+	<p>The Hangout Board</p>
+	<a href="https://compose.mail.yahoo.com/?to=project.hangout@yahoo.com" target="_blank" rel="noopener noreferrer">project.hangout@yahoo.com</a>
+	<p>123-456-7890</p>
+	<a href="https://www.facebook.com/" class="fa fa-facebook" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.youtube.com/" class="fa fa-youtube" target="_blank" rel="noopener noreferrer"></a>
+	<a href="https://www.snapchat.com/" class="fa fa-snapchat-ghost" target="_blank" rel="noopener noreferrer"></a>
+</footer>
+</body>
+</html>
